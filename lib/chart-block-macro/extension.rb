@@ -94,14 +94,16 @@ class C3jsChartBuilder
 
   def self.get_chart_id
     # TODO Read from attributes ?
-    'chart' + SecureRandom.uuid
+    'chart' + (0...8).map { (65 + rand(26)).chr }.join
   end
 
   def self.prepare_data(raw_data)
     labels = raw_data[0]
     raw_data.shift
-    raw_data.map.with_index do |row, index|
+    index = 0
+    raw_data.map do |row|
       row.unshift "#{index}"
+      index = index + 1
     end
     return raw_data, labels
   end
@@ -128,7 +130,12 @@ c3.generate({
 
   def self.c3js_chart_line_script(chart_id, data, labels)
     %(
-<script type="text/javascript">
+<script class="c3js-script" type="text/javascript">
+console.log("window.c3", window.c3);
+console.log("document", document);
+console.log("document.readyState", document.readyState);
+if (window.c3) {
+console.log("generating...");
 c3.generate({
   bindto: '##{chart_id}',
   data: {
@@ -137,10 +144,11 @@ c3.generate({
   axis: {
     x: {
       type: 'category',
-      categories: #{labels}
+      categories: #{labels.to_s}
     }
   }
 });
+}
 </script>)
   end
 
@@ -218,7 +226,7 @@ class ChartjsChartBuilder
     # TODO Replace with CDN when the 1.0 version will be available
     chartjs_script = %(<script src="#{File.join File.dirname(__FILE__), 'Chart.js'}"></script>)
     # TODO Generate unique id (or read from attributes)
-    chart_id = 'chart' + SecureRandom.uuid
+    chart_id = 'chart' + (0...8).map { (65 + rand(26)).chr }.join
     # TODO Read with percent from attributes
     chart_width_percent = 50
     chart_canvas = %(<div style="width:#{chart_width_percent}%"><canvas id="#{chart_id}"></canvas></div>)
