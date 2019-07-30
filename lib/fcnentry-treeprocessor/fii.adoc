@@ -1,0 +1,5 @@
+int Fii(int parameter_1, int parameter_2);::
++
+* `<parameter_1>` is passed in `r2`
+* `<parameter_2>` is passed in `r3`
+* function returns in `r2`

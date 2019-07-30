@@ -1,0 +1,9 @@
+= Sample
+:source-highlighter: rouge
+
+[role=fcnentry]
+include::fii.adoc[]
+
+include::fil.adoc[]
+
+Another paragraph

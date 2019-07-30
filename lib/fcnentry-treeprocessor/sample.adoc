@@ -1,0 +1,20 @@
+= Sample
+:source-highlighter: rouge
+
+[role=fcnentry]
+int Fii(int parameter_1, int parameter_2);::
++
+* `<parameter_1>` is passed in `r2`
+* `<parameter_2>` is passed in `r3`
+* function returns in `r2`
+
+long FiL(int parameter_1, long parameter_2);::
++
+* `<parameter_1>` is passed in `r2`
+* `<parameter_2>` is passed in `r3/r4` (low part/high part)
+* function returns in `r2/r3` (low part/high part)
+
+[]
+* here
+
+Another paragraph...
